@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="#" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/animate.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/js/sweetalert.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <title>Home Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-light">
+      <div class="container-fluid">
+        <img src="/img/hotel-logo.avif" width="60" class="rounded-circle" />
+        <a href="#" class="mx-3 navbar-brand text-white"
+          >Hotel Management System</a
+        >
+        <button class="navbar-toggler">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse">
+          <ul class="navbar-nav w-100 justify-content-end">
+            <li class="nav-item text-white fw-bold">Hotel</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br /><br /><br />
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="#signup" class="nav-link" data-bs-toggle="tab">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a href="#login" class="nav-link" data-bs-toggle="tab">Login</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane container" id="signup">
+              <img src="/img/signup-2.webp" class="w-25 mt-1" />
+              <form class="reg-form">
+                <input
+                  type="text"
+                  placeholder="Fullname"
+                  name="fullname"
+                  class="mb-3 form-control"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Hotel name"
+                  name="hotelname"
+                  class="mb-3 form-control"
+                  required
+                />
+                <input
+                  type="number"
+                  placeholder="No of Hotels Room"
+                  name="totalRoom"
+                  class="mb-3 form-control"
+                  required
+                />
+                <input
+                  type="number"
+                  placeholder="Mobile"
+                  name="mobile"
+                  class="mb-3 form-control"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  class="mb-3 form-control"
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  class="mb-3 form-control"
+                  required
+                />
+                <button class="btn btn-primary w-100">Register</button>
+              </form>
+            </div>
+            <div class="tab-pane active container mt-1" id="login">
+              <img src="/img/login.jpg" class="w-50" />
+              <form class="login-form">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  class="mb-3 form-control"
+                  required
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  class="mb-3 form-control"
+                  required
+                />
+                <button class="btn btn-primary w-100">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-6 mt-5 d-flex justify-content-center align-items-center"
+        >
+          <img src="/img/hotel-1.jpg" class="w-100" alt="" srcset="" />
+        </div>
+      </div>
+    </div>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
