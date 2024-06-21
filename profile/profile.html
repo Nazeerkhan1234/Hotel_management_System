@@ -13,6 +13,17 @@
     <link rel="stylesheet" href="./css/profile.css" />
     <script src="../js/sweetalert.js"></script>
     <script src="../js/bootstrap.js"></script>
+    <style>
+      @media print {
+        body,
+        html {
+          width: auto;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+    </style>
     <title>Profile</title>
   </head>
   <body>
@@ -323,8 +334,49 @@
         </div>
       </div>
     </div>
+    <!--------------- modal For Archive Cashier ------------ -->
+    <div
+      class="modal animate__animated animate__zoomIn"
+      tabindex="-1"
+      id="cashier-archive-modal"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Archive Cash</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="table-responsive">
+              <table class="table text-center table-striped">
+                <thead>
+                  <tr>
+                    <th>Sr</th>
+                    <th>Cashier</th>
+                    <th>Date/Time</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody class="cashier-arch-list"></tbody>
+              </table>
+              <div
+                class="d-flex mt-3 align-items-center justify-content-between"
+              >
+                <h1 class="">Total</h1>
+                <h1 class="cashier-arch-total me-5"></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!----------------- navbar -------------- -->
-    <nav class="navbar navbar-expand-md fixed-top navbar-light">
+    <nav class="navbar no-print navbar-expand-md fixed-top navbar-light">
       <div class="container-fluid">
         <img src="../img/hotel-logo.avif" width="60" class="rounded-circle" />
         <a href="#" class="mx-3 navbar-brand text-white"></a>
@@ -351,10 +403,10 @@
       </div>
     </nav>
     <br /><br /><br />
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
       <div class="row">
         <div class="col-md-12">
-          <ul class="nav nav-tabs">
+          <ul class="nav no-print nav-tabs">
             <li class="nav-item">
               <a href="#booking" class="nav-link tab-btn" data-bs-toggle="tab"
                 >Booking</a
@@ -380,8 +432,11 @@
             </li>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane container search-pan mt-3" id="booking">
-              <div class="row my-4">
+            <div
+              class="tab-pane no-print container-fluid search-pan mt-3"
+              id="booking"
+            >
+              <div class="row no-print my-4">
                 <div class="col-md-4 text-center">
                   <button
                     class="btn regB-btn px-4 text-white fw-bold action-btn"
@@ -392,7 +447,9 @@
                   </button>
                 </div>
                 <div class="col-md-4 text-center">
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="btn px-4 print-btn text-white fw-bold action-btn"
+                  >
                     Print
                   </button>
                 </div>
@@ -402,23 +459,23 @@
                   </button>
                 </div>
               </div>
-              <div>
+              <div class="table-responsive">
                 <h1>All Booking Data</h1>
                 <table class="table text-center table-striped">
                   <thead>
                     <tr>
-                      <th>Sr</th>
-                      <th>Location</th>
-                      <th>Room No</th>
-                      <th>Fullname</th>
-                      <th>Checkin</th>
-                      <th>Checkout</th>
-                      <th>Total People</th>
-                      <th>Mobile</th>
-                      <th>Price</th>
-                      <th>Notice</th>
-                      <th>Created At</th>
-                      <th>Action</th>
+                      <th class="text-nowrap no-print">Sr</th>
+                      <th class="text-nowrap">Location</th>
+                      <th class="text-nowrap">Room No</th>
+                      <th class="text-nowrap">Fullname</th>
+                      <th class="text-nowrap">Checkin</th>
+                      <th class="text-nowrap">Checkout</th>
+                      <th class="text-nowrap">Total People</th>
+                      <th class="text-nowrap">Mobile</th>
+                      <th class="text-nowrap">Price</th>
+                      <th class="text-nowrap">Notice</th>
+                      <th class="text-nowrap">Created At</th>
+                      <th class="text-nowrap">Action</th>
                     </tr>
                   </thead>
                   <tbody class="booking-list"></tbody>
@@ -437,7 +494,9 @@
                   </button>
                 </div>
                 <div class="col-md-4 text-center">
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="btn px-4 print-btn text-white fw-bold action-btn"
+                  >
                     Print
                   </button>
                 </div>
@@ -447,7 +506,7 @@
                   </button>
                 </div>
               </div>
-              <div>
+              <div class="table-responsive">
                 <h1>All In House Data</h1>
                 <table class="table text-center table-striped">
                   <thead>
@@ -473,7 +532,9 @@
             <div class="tab-pane container search-pan mt-3" id="archive">
               <div class="row my-4">
                 <div class="col-md-4">
-                  <button class="btn px-4 text-white fw-bold action-btn me-3">
+                  <button
+                    class="btn px-4 print-btn text-white fw-bold action-btn me-3"
+                  >
                     Print
                   </button>
                   <button class="btn px-4 text-white fw-bold action-btn">
@@ -481,7 +542,7 @@
                   </button>
                 </div>
               </div>
-              <div>
+              <div class="table-responsive">
                 <h1>All Archive Data</h1>
                 <table class="table text-center table-striped">
                   <thead>
@@ -505,7 +566,7 @@
               </div>
             </div>
             <div class="tab-pane container active mt-3" id="cashier">
-              <div>
+              <div class="table-responsive">
                 <h1>All Cashier Data</h1>
                 <table class="table text-center table-striped">
                   <thead>
@@ -523,7 +584,7 @@
                   class="d-flex mt-3 align-items-center justify-content-between"
                 >
                   <h1>Total</h1>
-                  <h1 class="total" style="margin-right: 90px">7000</h1>
+                  <h1 class="total me-5"></h1>
                 </div>
               </div>
               <div class="row my-4">
@@ -537,17 +598,26 @@
                   </button>
                 </div>
                 <div class="col-md-3 text-center">
-                  <button class="close-cashier-btn btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="close-cashier-btn btn px-4 text-white fw-bold action-btn"
+                  >
                     Close Cashier
                   </button>
                 </div>
                 <div class="col-md-3 text-center">
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    onclick="showArchiveCashierFn()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#cashier-archive-modal"
+                    class="btn px-4 text-white fw-bold action-btn"
+                  >
                     Archive Cashier
                   </button>
                 </div>
                 <div class="col-md-3 text-center">
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="btn px-4 print-btn text-white fw-bold action-btn"
+                  >
                     Print
                   </button>
                 </div>

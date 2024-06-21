@@ -1,6 +1,7 @@
 // Home page related data
 let userInfo;
 let user;
+let allPrintBtn = document.querySelectorAll(".print-btn");
 let btnClose = document.querySelectorAll(".btn-close");
 let logOutBtn = document.querySelector(".logout-btn");
 let navBrand = document.querySelector(".navbar-brand");
@@ -26,7 +27,6 @@ let allArchData = [];
 let archListTBody = document.querySelector(".archive-List");
 // cashier related data
 let allCashData = [];
-let allCashArchData = [];
 let cashierForm = document.querySelector(".cashier-form");
 let allCInput = cashierForm.querySelectorAll("input");
 let cashierBtn = document.querySelector(".cashier-tab");
@@ -35,6 +35,10 @@ let cashBtn = document.querySelector(".cash-btn");
 let cashTbody = document.querySelector(".cashier-list");
 let closeCashierBtn = document.querySelector(".close-cashier-btn");
 let cashTotal = document.querySelector(".total");
+// Archive Cashier
+let allCashArchData = [];
+let cashierArchTbody = document.querySelector(".cashier-arch-list");
+let archTotal = document.querySelector(".cashier-arch-total");
 
 // check user is login or not
 if (sessionStorage.getItem("__auth__") == null) {
@@ -43,6 +47,12 @@ if (sessionStorage.getItem("__auth__") == null) {
 userInfo = JSON.parse(sessionStorage.getItem("__auth__"));
 navBrand.innerHTML = userInfo.hotelname;
 user = userInfo.email.split("@")[0];
+// print
+for(let btn of allPrintBtn){
+  btn.onclick=()=>{
+    window.print()
+  }
+}
 // getting data from storage
 const fetchdata = (key) => {
   if (localStorage.getItem(key) != null) {
@@ -85,7 +95,7 @@ const showData = (ele, arr, key) => {
   ele.innerHTML = "";
   arr.forEach((item, idx) => {
     ele.innerHTML += `<tr>
-                               <td class="text-nowrap">${idx + 1}</td>
+                               <td class="no-print text-nowrap">${idx + 1}</td>
                                <td class="text-nowrap">${item.location}</td>
                                <td class="text-nowrap">${item.roomNo}</td>
                                <td class="text-nowrap">${item.fullname}</td>
@@ -104,13 +114,13 @@ const showData = (ele, arr, key) => {
                                  true
                                )}</td>
                                <td class="text-nowrap">
-                                  <button class="${
+                                  <button class="no-print ${
                                     tmp == "allArchData" ? "d-none" : ""
                                   } edit-btn btn px-2 p-1 me-1 btn-primary">
                                    <i class="fa fa-edit"></i></button
-                                  ><button class="checkin-btn btn px-2 p-1 me-1 btn-info text-white">
+                                  ><button class="no-print checkin-btn btn px-2 p-1 me-1 btn-info text-white">
                                     <i class="fa fa-check"></i></button
-                                  ><button class="del-btn btn px-2 p-1 btn-danger">
+                                  ><button class="del-btn btn px-2 p-1 btn-danger no-print">
                                     <i class="fa fa-trash"></i>
                                   </button>
                                 </td>
@@ -319,7 +329,7 @@ showData(inHListTBody, allInhouseData, user + "_allHdata");
 showData(bListTBody, allBookingData, user + "_allBdata");
 showData(archListTBody, allArchData, user + "_allArchData");
 
-// Cashier
+//close Cashier
 const showCashierFn = () => {
   let totalCash = 0;
   cashTbody.innerHTML = " ";
@@ -330,15 +340,14 @@ const showCashierFn = () => {
                       <td>${idx + 1}</td>
                       <td>${item.roomNo}</td>
                       <td>${item.cashierName}</td>
-                      <td>${formatDate(item.createdAt)}</td>
+                      <td>${formatDate(item.createdAt,true)}</td>
                       <td>${item.amount}</td>
                     </tr>
     `;
   });
-  cashTotal.innerHTML = "<i class='fa fa-rupee'></i> "+totalCash;
+  cashTotal.innerHTML = "<i class='fa fa-rupee'></i>   " + totalCash;
 };
 showCashierFn();
-
 cashBtn.onclick = () => {
   allCInput[2].value = sessionStorage.getItem("c_name");
 };
@@ -373,7 +382,25 @@ closeCashierBtn.onclick = () => {
       JSON.stringify(allCashArchData)
     );
     showCashierFn();
-  }else{
-    swal("Warning","there is no cash to close","warning")
+  } else {
+    swal("Warning", "there is no cash to close", "warning");
   }
 };
+// Archive Cashier
+const showArchiveCashierFn = () => {
+  let totalCash = 0;
+  cashierArchTbody.innerHTML = " ";
+  allCashArchData.forEach((item, idx) => {
+    totalCash += +item.total;
+    cashierArchTbody.innerHTML += `
+    <tr>
+                      <td>${idx + 1}</td>
+                      <td>${item.cashierName}</td>
+                      <td>${formatDate(item.createdAt,true)}</td>
+                      <td>${item.total}</td>
+                    </tr>
+    `;
+  });
+  archTotal.innerHTML = "<i class='fa fa-rupee'></i> " + totalCash;
+};
+showArchiveCashierFn();
