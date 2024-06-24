@@ -150,7 +150,6 @@
         </div>
       </div>
     </div>
-
     <!--------------- modal For Inhouse ------------ -->
     <div
       class="modal animate__animated animate__zoomIn"
@@ -344,6 +343,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Archive Cash</h5>
+            <button class="btn action-btn arch-print-btn mx-5 mb-1 text-white">
+              Print
+            </button>
             <button
               type="button"
               class="btn-close"
@@ -408,7 +410,10 @@
         <div class="col-md-12">
           <ul class="nav no-print nav-tabs">
             <li class="nav-item">
-              <a href="#booking" class="nav-link tab-btn" data-bs-toggle="tab"
+              <a
+                href="#booking"
+                class="active nav-link tab-btn"
+                data-bs-toggle="tab"
                 >Booking</a
               >
             </li>
@@ -425,15 +430,16 @@
             <li class="nav-item">
               <a
                 href="#cashier"
-                class="nav-link cashier-tab active"
+                class="nav-link cashier-tab"
                 data-bs-toggle="tab"
                 >Cashier</a
               >
             </li>
           </ul>
           <div class="tab-content">
+            <!----------- Booking --------------->
             <div
-              class="tab-pane no-print container-fluid search-pan mt-3"
+              class="tab-pane no-print active container-fluid search-pan mt-3"
               id="booking"
             >
               <div class="row no-print my-4">
@@ -454,7 +460,9 @@
                   </button>
                 </div>
                 <div class="col-md-4 text-center">
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="btn px-4 text-white total-btn fw-bold action-btn"
+                  >
                     Total Booking
                   </button>
                 </div>
@@ -474,16 +482,20 @@
                       <th class="text-nowrap">Mobile</th>
                       <th class="text-nowrap">Price</th>
                       <th class="text-nowrap">Notice</th>
-                      <th class="text-nowrap">Created At</th>
-                      <th class="text-nowrap">Action</th>
+                      <th class="text-nowrap no-print">Created At</th>
+                      <th class="text-nowrap no-print">Action</th>
                     </tr>
                   </thead>
                   <tbody class="booking-list"></tbody>
                 </table>
               </div>
+              <div class="row py-5 show-booking-room">
+                
+              </div>
             </div>
-            <div class="tab-pane container search-pan mt-3" id="inhouse">
-              <div class="row my-4">
+            <!------------- Inhouse --------------->
+            <div class="tab-pane container-fluid search-pan mt-3"         id="inhouse">
+              <div class="row no-print my-4">
                 <div class="col-md-4 text-center">
                   <button
                     class="btn inhouse-reg-btn px-4 text-white fw-bold action-btn"
@@ -501,7 +513,9 @@
                   </button>
                 </div>
                 <div class="col-md-4 text-center">
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="btn px-4 text-white total-btn fw-bold action-btn"
+                  >
                     Total Inhouse
                   </button>
                 </div>
@@ -511,33 +525,40 @@
                 <table class="table text-center table-striped">
                   <thead>
                     <tr>
-                      <th>Sr</th>
-                      <th>Location</th>
-                      <th>Room No</th>
-                      <th>Fullname</th>
-                      <th>Checkin</th>
-                      <th>Checkout</th>
-                      <th>Total People</th>
-                      <th>Mobile</th>
-                      <th>Price</th>
-                      <th>Notice</th>
-                      <th>Created At</th>
-                      <th>Action</th>
+                      <th class="no-print">Sr</th>
+                      <th class="text-nowrap">Location</th>
+                      <th class="text-nowrap">Room No</th>
+                      <th class="text-nowrap">Fullname</th>
+                      <th class="text-nowrap">Checkin</th>
+                      <th class="text-nowrap">Checkout</th>
+                      <th class="text-nowrap">Total People</th>
+                      <th class="text-nowrap">Mobile</th>
+                      <th class="text-nowrap">Price</th>
+                      <th class="text-nowrap">Notice</th>
+                      <th class="no-print">Created At</th>
+                      <th class="no-print">Action</th>
                     </tr>
                   </thead>
                   <tbody class="inhouse-list"></tbody>
                 </table>
               </div>
+              <div class="row py-5 show-inhouse-room">
+                <div class="card text-center px-0 col-md-2">
+                </div>
+              </div>
             </div>
-            <div class="tab-pane container search-pan mt-3" id="archive">
-              <div class="row my-4">
+            <!----------- Archive  ---------->
+            <div class="tab-pane container-fluid search-pan mt-3" id="archive">
+              <div class="row no-print my-4">
                 <div class="col-md-4">
                   <button
                     class="btn px-4 print-btn text-white fw-bold action-btn me-3"
                   >
                     Print
                   </button>
-                  <button class="btn px-4 text-white fw-bold action-btn">
+                  <button
+                    class="btn px-4 text-white total-btn fw-bold action-btn"
+                  >
                     Total Archive
                   </button>
                 </div>
@@ -547,35 +568,39 @@
                 <table class="table text-center table-striped">
                   <thead>
                     <tr>
-                      <th>Sr</th>
-                      <th>Location</th>
-                      <th>Room No</th>
-                      <th>Fullname</th>
-                      <th>Checkin</th>
-                      <th>Checkout</th>
-                      <th>Total People</th>
-                      <th>Mobile</th>
-                      <th>Price</th>
-                      <th>Notice</th>
-                      <th>Created At</th>
-                      <th>Action</th>
+                      <th class="no-print">Sr</th>
+                      <th class="text-nowrap">Location</th>
+                      <th class="text-nowrap">Room No</th>
+                      <th class="text-nowrap">Fullname</th>
+                      <th class="text-nowrap">Checkin</th>
+                      <th class="text-nowrap">Checkout</th>
+                      <th class="text-nowrap">Total People</th>
+                      <th class="text-nowrap">Mobile</th>
+                      <th class="text-nowrap">Price</th>
+                      <th class="text-nowrap">Notice</th>
+                      <th class="no-print">Created At</th>
+                      <th class="no-print">Action</th>
                     </tr>
                   </thead>
                   <tbody class="archive-List"></tbody>
                 </table>
               </div>
             </div>
-            <div class="tab-pane container active mt-3" id="cashier">
+            <!----------------- Cashier ------------->
+            <div
+              class="tab-pane cashier-tab-pan container-fluid mt-3"
+              id="cashier"
+            >
               <div class="table-responsive">
                 <h1>All Cashier Data</h1>
                 <table class="table text-center table-striped">
                   <thead>
                     <tr>
-                      <th>Sr</th>
-                      <th>Room No</th>
-                      <th>Cashier</th>
-                      <th>Date/Time</th>
-                      <th>Amount</th>
+                      <th class="no-print">Sr</th>
+                      <th class="text-nowrap">Room No</th>
+                      <th class="text-nowrap">Cashier</th>
+                      <th class="text-nowrap">Date/Time</th>
+                      <th class="text-nowrap">Amount</th>
                     </tr>
                   </thead>
                   <tbody class="cashier-list"></tbody>
@@ -590,7 +615,7 @@
               <div class="row my-4">
                 <div class="col-md-3 text-center">
                   <button
-                    class="btn px-4 text-white fw-bold action-btn cash-btn"
+                    class="btn no-print px-4 text-white fw-bold action-btn cash-btn"
                     data-bs-toggle="modal"
                     data-bs-target="#cashier-modal"
                   >
@@ -599,7 +624,7 @@
                 </div>
                 <div class="col-md-3 text-center">
                   <button
-                    class="close-cashier-btn btn px-4 text-white fw-bold action-btn"
+                    class="no-print close-cashier-btn btn px-4 text-white fw-bold action-btn"
                   >
                     Close Cashier
                   </button>
@@ -609,14 +634,14 @@
                     onclick="showArchiveCashierFn()"
                     data-bs-toggle="modal"
                     data-bs-target="#cashier-archive-modal"
-                    class="btn px-4 text-white fw-bold action-btn"
+                    class="no-print btn px-4 text-white fw-bold action-btn"
                   >
                     Archive Cashier
                   </button>
                 </div>
                 <div class="col-md-3 text-center">
                   <button
-                    class="btn px-4 print-btn text-white fw-bold action-btn"
+                    class="no-print btn px-4 print-btn text-white fw-bold action-btn"
                   >
                     Print
                   </button>

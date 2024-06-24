@@ -2,6 +2,8 @@
 let userInfo;
 let user;
 let allPrintBtn = document.querySelectorAll(".print-btn");
+let allTotalBtn = document.querySelectorAll(".total-btn");
+let archPrintBtn = document.querySelector(".arch-print-btn");
 let btnClose = document.querySelectorAll(".btn-close");
 let logOutBtn = document.querySelector(".logout-btn");
 let navBrand = document.querySelector(".navbar-brand");
@@ -15,6 +17,7 @@ let bookingTextarea = bookingForm.querySelector("textarea");
 let bListTBody = document.querySelector(".booking-list");
 let regBbtn = document.querySelector(".regB-btn");
 let bookingTab = document.querySelector("#booking");
+let showBRoomEle = document.querySelector(".show-booking-room");
 // In House related data
 let allInhouseData = [];
 let inHouseForm = document.querySelector(".inhouse-form");
@@ -22,6 +25,7 @@ let allinHInput = inHouseForm.querySelectorAll("input");
 let inhouseTextarea = inHouseForm.querySelector("textarea");
 let inHousebtn = document.querySelector(".inhouse-reg-btn");
 let inHListTBody = document.querySelector(".inhouse-list");
+let showHRoomEle = document.querySelector(".show-inhouse-room");
 // archive related data
 let allArchData = [];
 let archListTBody = document.querySelector(".archive-List");
@@ -30,6 +34,7 @@ let allCashData = [];
 let cashierForm = document.querySelector(".cashier-form");
 let allCInput = cashierForm.querySelectorAll("input");
 let cashierBtn = document.querySelector(".cashier-tab");
+let cashierTabPan = document.querySelector(".cashier-tab-pan");
 let cashierTab = document.querySelector("#cashier");
 let cashBtn = document.querySelector(".cash-btn");
 let cashTbody = document.querySelector(".cashier-list");
@@ -48,11 +53,18 @@ userInfo = JSON.parse(sessionStorage.getItem("__auth__"));
 navBrand.innerHTML = userInfo.hotelname;
 user = userInfo.email.split("@")[0];
 // print
-for(let btn of allPrintBtn){
-  btn.onclick=()=>{
-    window.print()
-  }
+for (let btn of allPrintBtn) {
+  btn.onclick = () => {
+    window.print();
+  };
 }
+archPrintBtn.onclick = () => {
+  cashierTabPan.classList.add("d-none");
+  window.print();
+};
+btnClose[3].onclick = () => {
+  cashierTabPan.classList.remove("d-none");
+};
 // getting data from storage
 const fetchdata = (key) => {
   if (localStorage.getItem(key) != null) {
@@ -80,7 +92,11 @@ const formatDate = (data, isTime) => {
 };
 // Registration
 const registrationFunc = (arr, inputs, textarea = null, key) => {
-  let data = { notice: textarea && textarea.value, createdAt: new Date() };
+  let data = {
+    notice: textarea && textarea.value,
+    inHouse: false,
+    createdAt: new Date(),
+  };
   for (let ele of inputs) {
     let key = ele.name;
     data[key] = ele.value;
@@ -109,7 +125,7 @@ const showData = (ele, arr, key) => {
                                <td class="text-nowrap">${item.mobile}</td>
                                <td class="text-nowrap">${item.price}</td>
                                <td class="text-nowrap">${item.notice}</td>
-                               <td class="text-nowrap">${formatDate(
+                               <td class="text-nowrap no-print">${formatDate(
                                  item.createdAt,
                                  true
                                )}</td>
@@ -151,6 +167,8 @@ bookingForm.onsubmit = (e) => {
   bookingForm.reset("");
   btnClose[0].click();
   showData(bListTBody, allBookingData, user + "_allBdata");
+  showTotal();
+  showBookingRooms();
 };
 // In House Registration
 inHouseForm.onsubmit = (e) => {
@@ -164,6 +182,8 @@ inHouseForm.onsubmit = (e) => {
   inHouseForm.reset("");
   btnClose[1].click();
   showData(inHListTBody, allInhouseData, user + "_allHdata");
+  showTotal();
+  showInhouseRooms();
 };
 //Cashier Registration
 cashierForm.onsubmit = (e) => {
@@ -267,11 +287,17 @@ const checkInCheckout = (ele, arr, key) => {
         );
         swal("Data CheckIn Successfully");
         showData(ele, arr, key);
+        showBookingRooms();
+        showInhouseRooms();
+        showTotal();
       } else if (tmp == "allArchData") {
         allBookingData.unshift(data);
         localStorage.setItem(user + "_allBata", JSON.stringify(allBookingData));
         swal("Data Moving in Booking Successfully");
         showData(ele, arr, key);
+        showBookingRooms();
+        showInhouseRooms();
+        showTotal();
       } else {
         allArchData.unshift(data);
         localStorage.setItem(
@@ -280,6 +306,8 @@ const checkInCheckout = (ele, arr, key) => {
         );
         swal("Data Checkout Successfully");
         showData(ele, arr, key);
+        showInhouseRooms();
+        showTotal();
       }
     };
   });
@@ -340,7 +368,7 @@ const showCashierFn = () => {
                       <td>${idx + 1}</td>
                       <td>${item.roomNo}</td>
                       <td>${item.cashierName}</td>
-                      <td>${formatDate(item.createdAt,true)}</td>
+                      <td>${formatDate(item.createdAt, true)}</td>
                       <td>${item.amount}</td>
                     </tr>
     `;
@@ -381,6 +409,7 @@ closeCashierBtn.onclick = () => {
       user + "_allCashArchData",
       JSON.stringify(allCashArchData)
     );
+    sessionStorage.removeItem("c_name");
     showCashierFn();
   } else {
     swal("Warning", "there is no cash to close", "warning");
@@ -396,7 +425,7 @@ const showArchiveCashierFn = () => {
     <tr>
                       <td>${idx + 1}</td>
                       <td>${item.cashierName}</td>
-                      <td>${formatDate(item.createdAt,true)}</td>
+                      <td>${formatDate(item.createdAt, true)}</td>
                       <td>${item.total}</td>
                     </tr>
     `;
@@ -404,3 +433,90 @@ const showArchiveCashierFn = () => {
   archTotal.innerHTML = "<i class='fa fa-rupee'></i> " + totalCash;
 };
 showArchiveCashierFn();
+//show Booking Rooms
+const showBookingRooms = () => {
+  showBRoomEle.innerHTML = "";
+  allBookingData.forEach((item, idx) => {
+    showBRoomEle.innerHTML += `<div class="card text-center px-0 col-md-2">
+                  <div class="bg-danger text-white fw-bold card-header">
+                    ${item.roomNo}
+                  </div>
+                  <div class="card-body bg-success text-white fw-bold">
+                    <p>${formatDate(item.checkIndate)}</p>
+                    <p>To</p>
+                    <p>${formatDate(item.checkOutDate)}</p>
+                  </div>
+                </div>`;
+  });
+};
+showBookingRooms();
+// show Inhouse Rooms
+const showInhouseRooms = () => {
+  showHRoomEle.innerHTML = "";
+  allInhouseData.forEach((item, idx) => {
+    showHRoomEle.innerHTML += `<div class="card text-center px-0 col-md-2">
+                  <div class="bg-danger text-white fw-bold card-header">
+                    ${item.roomNo}
+                  </div>
+                  <div class="card-body">
+                    <img src="${
+                      item.inHouse ? "/img/dummy.png" : "/img/lock.jpeg"
+                    }" class="w-100" height="150px">
+                  </div>
+                  <div class="card-footer">
+                    <button class="in-btn action-btn btn text-white">
+                      In
+                    </button>
+                    <button class="out-btn action-btn btn text-white">
+                      Out
+                    </button>
+                  </div>
+                </div>`;
+  });
+  // In coding
+  let allInBtn = showHRoomEle.querySelectorAll(".in-btn");
+  allInBtn.forEach((btn, idx) => {
+    btn.onclick = () => {
+      let data = allInhouseData[idx];
+      data.inHouse = true;
+      allInhouseData[idx] = data;
+      localStorage.setItem(user + "_allHdata", JSON.stringify(allInhouseData));
+      showInhouseRooms();
+    };
+  });
+  // Out coding
+  let allOutBtn = showHRoomEle.querySelectorAll(".out-btn");
+  allOutBtn.forEach((btn, idx) => {
+    btn.onclick = () => {
+      let data = allInhouseData[idx];
+      data.inHouse = false;
+      allInhouseData[idx] = data;
+      localStorage.setItem(user + "_allHdata", JSON.stringify(allInhouseData));
+      showInhouseRooms();
+    };
+  });
+};
+showInhouseRooms();
+// show total length
+const showTotal = () => {
+  allTotalBtn[0].innerText = "Total Booking = " + allBookingData.length;
+  allTotalBtn[1].innerText = "Total Inhouse = " + allInhouseData.length;
+  allTotalBtn[2].innerText = "Total Archive = " + allArchData.length;
+};
+showTotal();
+// check Hotel Rooms
+const chehkRooms = (ele) => {
+  if (Number(userInfo.totalRoom) < Number(ele.value)) {
+    swal(
+      "warning",
+      `Total ${userInfo.totalRoom} room is available in the Hotel`,
+      "warning"
+    );
+  }
+};
+allBookingInput[2].oninput = (e) => {
+  chehkRooms(e.target);
+};
+allinHInput[2].oninput = (e) => {
+  chehkRooms(e.target);
+};
